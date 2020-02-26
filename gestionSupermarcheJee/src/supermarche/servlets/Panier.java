@@ -28,8 +28,15 @@ public class Panier extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/jsp/Panier.jsp");
-		dispatcher.forward(request, response);
+		HttpSession session = request.getSession(false);
+		if(session != null) {
+			createPanierIfNotExists(session);
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/jsp/Panier.jsp");
+			dispatcher.forward(request, response);
+		} else {
+			response.sendRedirect(request.getContextPath() + "/Home");
+		}
+		
 	}
 
 	/**
@@ -42,6 +49,7 @@ public class Panier extends HttpServlet {
 		String message = null;
 		
 		if(session != null) {
+			createPanierIfNotExists(session);
 			String method = request.getParameter("method");
 			Supermarche supermarche = (Supermarche) this.getServletContext().getAttribute("supermarche");
 			TreeMap<Integer, Article> panier = (TreeMap<Integer, Article>) session.getAttribute("panier");
@@ -61,9 +69,7 @@ public class Panier extends HttpServlet {
 				case "addByCode" :
 					try {
 						long codeSubmitted = Long.parseLong(request.getParameter("code"));
-						System.out.println("l63 - " + codeSubmitted);
 						articleToAdd = supermarche.getArticles().get(codeSubmitted);
-						System.out.println("l65 - " + articleToAdd);
 						if(articleToAdd != null) {
 							if(panier.lastEntry() != null) {
 								key = panier.lastEntry().getKey() + 1;
@@ -93,9 +99,15 @@ public class Panier extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/Home");
 		} else {
 			response.sendRedirect(request.getContextPath() + "/Panier");
-			System.out.println("l91 - Je redirect");
 		}
 		
+	}
+	
+	//Initialise un panier si celui-ci n'est pas défini dans la session.
+	private void createPanierIfNotExists(HttpSession session) {
+		if (session.getAttribute("panier") == null) {
+			session.setAttribute("panier", new TreeMap<Integer, Article>());
+		}
 	}
 
 }
