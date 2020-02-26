@@ -28,7 +28,6 @@ public class Panier extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println(request.getSession(false).getAttribute("panier"));
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/jsp/Panier.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -40,22 +39,45 @@ public class Panier extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		boolean redirectHome = true;
+		String message = null;
 		
 		if(session != null) {
 			String method = request.getParameter("method");
 			Supermarche supermarche = (Supermarche) this.getServletContext().getAttribute("supermarche");
 			TreeMap<Integer, Article> panier = (TreeMap<Integer, Article>) session.getAttribute("panier");
+			Article articleToAdd = null;
 			int key = 0;
 			
 			switch(method) {
 				case "add" :
 					long CodeBarre = Long.parseLong(request.getParameter("article"));
-					Article a = supermarche.getArticles().get(CodeBarre);
+					articleToAdd = supermarche.getArticles().get(CodeBarre);
 					if(panier.lastEntry() != null) {
 						key = panier.lastEntry().getKey() + 1;
 					}
-					panier.put(key, a);
+					panier.put(key, articleToAdd);
 					break;
+					
+				case "addByCode" :
+					try {
+						long codeSubmitted = Long.parseLong(request.getParameter("code"));
+						System.out.println("l63 - " + codeSubmitted);
+						articleToAdd = supermarche.getArticles().get(codeSubmitted);
+						System.out.println("l65 - " + articleToAdd);
+						if(articleToAdd != null) {
+							if(panier.lastEntry() != null) {
+								key = panier.lastEntry().getKey() + 1;
+							}
+							panier.put(key, articleToAdd);
+						} else {
+							message = "Le code barre ne correspond à aucun article";
+						}
+					} catch (Exception e) {
+						message = "Le code barre ne correspond à aucun article";
+					}
+					redirectHome = false;
+					break;
+					
 				case "delete" :
 					key = Integer.parseInt(request.getParameter("index"));
 					panier.remove(key);
@@ -64,11 +86,14 @@ public class Panier extends HttpServlet {
 			}
 			
 		}
+		
+		session.setAttribute("message", message);
 
 		if(redirectHome) {
 			response.sendRedirect(request.getContextPath() + "/Home");
 		} else {
 			response.sendRedirect(request.getContextPath() + "/Panier");
+			System.out.println("l91 - Je redirect");
 		}
 		
 	}

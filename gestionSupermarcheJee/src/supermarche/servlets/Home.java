@@ -49,7 +49,6 @@ public class Home extends HttpServlet {
 		
 		HttpSession session = request.getSession(false);
 		if (session!=null) {
-			System.out.println("Création d'un panier vide");
 			if (session.getAttribute("panier") == null) {
 				session.setAttribute("panier", new TreeMap<Integer, Article>());
 			}
