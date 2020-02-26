@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -50,7 +51,7 @@ public class Home extends HttpServlet {
 		if (session!=null) {
 			System.out.println("Création d'un panier vide");
 			if (session.getAttribute("panier") == null) {
-				session.setAttribute("panier", new ArrayList<Article>());
+				session.setAttribute("panier", new TreeMap<Integer, Article>());
 			}
 		}
 		
