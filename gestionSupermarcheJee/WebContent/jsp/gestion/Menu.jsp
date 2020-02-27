@@ -175,6 +175,7 @@
 				</form>
 			</div>
 		</div>
+		<%@ include file="/jsp/layout/footer.jsp"%>
 	</body>
 	
 	<script>

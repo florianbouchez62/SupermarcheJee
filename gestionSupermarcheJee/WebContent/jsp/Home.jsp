@@ -28,7 +28,8 @@
 		    </div>
 		  </div>
 		</div>
-
+		
+		
 		<div class="product-grid product-grid--flexbox">
 			<div class="product-grid__wrapper">	
 			
@@ -51,6 +52,6 @@
 		
 			</div>
 		</div>
-				
+		<%@ include file="/jsp/layout/footer.jsp"%>		
 	</body>
 </html>
