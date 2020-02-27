@@ -2,6 +2,8 @@
 <%@ taglib prefix= "fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 	<%@ include file="/jsp/layout/head.jsp"%>
+	<style><%@include file="/jsp/static/Home.css"%></style>
+	<script><%@include file="/jsp/static/Script.js"%></script>
 	<body>
 		<%@ include file="/jsp/layout/nav.jsp"%>
 		
