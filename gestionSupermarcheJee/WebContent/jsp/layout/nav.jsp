@@ -25,6 +25,9 @@
 	    <c:if test="${panier != null && panier.size() > 0}">
 	    	${panier.size()}
 	    </c:if>	
+	    <c:if test="${panier == null || panier.size() == 0}">
+	    	0
+	    </c:if>	
     	<i class="fas fa-shopping-basket"></i>
     </a>
   </div>
