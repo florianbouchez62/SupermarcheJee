@@ -32,11 +32,11 @@ public class Home extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);	
 		Map<Long, Article> articles = new HashMap<Long, Article>();
-		articles.put(3000128651210l, new Article(3000128651210l, "351O", "Steak de petits pois végan", 2100, 1, "https://img.over-blog-kiwi.com/0/89/77/71/20170410/ob_4fa4c6_steack-vegetarien-pois-chiches-lenti.jpg"));
-		articles.put(3000128651212l, new Article(3000128651212l, "777Z", "Daube de cheval bio", 1872, 1, "https://www.la-viande.fr/sites/default/files/styles/slider_recettes/public/recettes/images/i06it10.jpg?itok=jyEkGalO"));
-		articles.put(3000128651214l, new Article(3000128651214l, "144R", "Pack de 6 Pommes rouges", 216, 1, "https://wordpress.potagercity.fr/wp-content/uploads/2019/02/tout-savoir-sur-pomme-gala.jpg"));
-		articles.put(3000128651216l, new Article(3000128651216l, "542Y", "Big burger signature thekairi", 152, 1, "https://i.ytimg.com/vi/NfcRmeSDwDY/maxresdefault.jpg"));
-		articles.put(3000128651218l, new Article(3000128651218l, "AAE2", "Jacquie et michel l'intégrale", 4899, 1, "https://jmcontact.fr/jacquieetmichel/images/portfolio/modals/m-soirees.jpg"));
+		articles.put(3000128651210l, new Article(3000128651210l, "351O", "Garbolino carnassier", 2100, 1, "https://www.pacificpeche.com/media/catalog/product/c/a/canne-mort-manie-carnassier-garbolino-tradition-mort-manie-3m-20-60g-152469-a.jpg"));
+		articles.put(3000128651212l, new Article(3000128651212l, "777Z", "Daiwa megaforce big fish", 1872, 1, "https://www.pacificpeche.com/imgs/1/canne-daiwa-megaforce-big-fish-362xxxh-3-60m-250-500g-135955-a.jpg"));
+		articles.put(3000128651214l, new Article(3000128651214l, "144R", "Tenryu furray racing", 216, 1, "https://www.pacificpeche.com/imgs/1/canne-lancer-tenryu-furrary-racing-2-47m-80lb-40-130g-109757-a.jpg"));
+		articles.put(3000128651216l, new Article(3000128651216l, "542Y", "Tenryu furrary travel quatro", 152, 1, "https://www.pacificpeche.com/imgs/1/canne-lancer-tenryu-furrary-travel-quatro-2-70m-60-180g-60lb-125253-a.jpg"));
+		articles.put(3000128651218l, new Article(3000128651218l, "AAE2", "Spinerbait sakura micro 5g", 4899, 1, "https://www.pacificpeche.com/imgs/1/leurre-metallique-spinenrbait-carnassier-sakura-monarc-micro-5g-121473-5.jpg"));
 		Supermarche supermarche = new Supermarche(articles);
 		config.getServletContext().setAttribute("supermarche", supermarche);
 	}
