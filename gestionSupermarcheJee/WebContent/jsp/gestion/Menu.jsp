@@ -2,11 +2,14 @@
 <%@ taglib prefix= "fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 	<%@ include file="/jsp/layout/head.jsp"%>
+	<head>
+		<style><%@include file="/jsp/static/Home.css"%></style>
+	</head>
 	<body>
 		<%@ include file="/jsp/layout/nav.jsp"%>
 		
 		<c:if test="${addMessage != null}">
-			<div class="alert alert-primary" style="width:80%;margin-left:10%;margin-top:1em;" role="alert">
+			<div class="alert alert-danger" style="width:80%;margin-left:10%;margin-top:1em;" role="alert">
 				<i class="fa fa-exclamation-triangle" aria-hidden="true"> </i>
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			    	<span aria-hidden="true">&times;</span>
@@ -73,7 +76,7 @@
 		</c:if>
 		
 		<c:if test="${ supermarche.articles.size() == 0 }">
-			<div class="alert alert-primary" style="width:80%;height:30%;margin-left:10%;margin-top:1em;" role="alert">
+			<div class="alert alert-danger" style="width:80%;height:30%;margin-left:10%;margin-top:1em;" role="alert">
 				<i class="fa fa-exclamation-triangle" aria-hidden="true"> </i>
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			    	<span aria-hidden="true">&times;</span>

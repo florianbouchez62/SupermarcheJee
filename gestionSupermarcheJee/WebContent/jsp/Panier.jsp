@@ -11,7 +11,7 @@
 			<div class="col s12">
 				
 				<c:if test="${message != null}">
-					<div class="alert alert-primary" style="width:80%;height:30%;margin-left:10%;margin-top:1em;" role="alert">
+					<div class="alert alert-danger" style="width:80%;height:30%;margin-left:10%;margin-top:1em;" role="alert">
 						<i class="fa fa-exclamation-triangle" aria-hidden="true"> </i>
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					    	<span aria-hidden="true">&times;</span>
