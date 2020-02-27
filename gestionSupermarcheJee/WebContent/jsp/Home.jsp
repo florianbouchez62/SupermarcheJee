@@ -12,7 +12,7 @@
 		<div id="carousel" class="carousel slide" data-ride="carousel" data-interval="3500">
 		  <div class="carousel-inner">
 		    <div class="carousel-item active">
-		       	<img src="https://cdn.wallpapersafari.com/41/91/ShciPy.jpg" class="d-block w-100">
+		    	<img src="https://images.unsplash.com/photo-1493787039806-2edcbe808750?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" class="d-block w-100">
 		    </div>
 		    <div class="carousel-item">
 		      <img src="https://cdn.hipwallpaper.com/i/30/10/yDKwlN.jpg" class="d-block w-100">
@@ -24,7 +24,7 @@
 		      <img src="https://cdn.wallpapersafari.com/35/88/OswbGy.jpg" class="d-block w-100">
 		    </div>
 		    <div class="carousel-item">
-		   		<img src="https://images.unsplash.com/photo-1493787039806-2edcbe808750?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" class="d-block w-100">
+		    	<img src="https://cdn.wallpapersafari.com/41/91/ShciPy.jpg" class="d-block w-100">
 		    </div>
 		  </div>
 		</div>

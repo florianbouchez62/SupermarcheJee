@@ -25,7 +25,7 @@
 		    <small id="usernameHelp" class="form-text text-muted">Le password est : password</small>
 		  </div>
 		  
-		  <button type="submit" class="btn btn-dark">Submit</button>
+		  <button type="submit" class="btn btn-dark">Se connecter</button>
 		</form>
 	</body>
 </html>

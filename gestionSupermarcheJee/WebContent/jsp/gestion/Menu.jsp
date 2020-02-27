@@ -167,7 +167,7 @@
 				  	</div>
 					
 					<div class="form-group">
-				  		<label for="tauxTVA">tauxTVA</label>
+				  		<label for="tauxTVA">Taux TVA</label>
 						<input type="text" class="form-control" id="tvaModif" readonly="readonly"><br>
 				  	</div>
 				  	
@@ -179,8 +179,6 @@
 	
 	<script>
 		function updateEditForm(id, ref, nom, uri, prix, tva){
-			var top = document.getElementById("editFormSubmit").offsetTop;
-		    window.scrollTo(0, top);
 			document.getElementById("modifArticle").style.display = "inline";
 			document.getElementById("indexModif").value = id;
 			document.getElementById("codeBarreModif").value = id;
@@ -189,7 +187,7 @@
 			document.getElementById("imageUriModif").value = uri;
 			document.getElementById("prixHTModif").value = prix;
 			document.getElementById("tvaModif").value = (tva + "%");
-			console.log(id);
+			window.scrollTo(0,document.body.scrollHeight);
 		}
 		
 		function hideEditForm(){

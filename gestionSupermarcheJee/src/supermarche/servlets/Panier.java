@@ -1,4 +1,4 @@
-package supermarche.servlets;
+	package supermarche.servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;

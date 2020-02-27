@@ -77,7 +77,7 @@
 							<td></td>
 							<td></td>
 							<td></td>
-							<td>Total TTC </br> TVA </br> Total Ht </td>
+							<td style="font-weight:bold;">Total TTC </br>Dont TVA </br> Total HT </td>
 							<td>
 								<fmt:formatNumber value="${totalTTC / 100 }" pattern = "0.00"/> EUR </br>
 								<fmt:formatNumber value="${totalTVA / 100 }" pattern = "0.00"/> EUR </br>
