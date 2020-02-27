@@ -2,7 +2,7 @@
   height: 30em;
 }
 
-.panier, .connexion {
+.panier, .connexion, .gestion, .deconnexion {
 	color: rgba(0,0,0,.9);
 }
 
