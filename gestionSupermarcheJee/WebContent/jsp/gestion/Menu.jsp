@@ -136,7 +136,7 @@
 			
 			<div class="col-4 offset-md-2" id="modifArticle" style="display: none">
 				<h3>Modification de l'article <span aria-hidden="true" onclick="hideEditForm()">&times;</span></h3>
-				<form method="post" style="margin-top: 1em" action="Gestion">
+				<form method="post" style="margin-top: 1em" action="Gestion" id="editForm">
 					<input type="hidden" name="method" value="edit">
 					<input type="hidden" name="index" id="indexModif" value="">
 					<div class="form-row">
@@ -146,7 +146,7 @@
 					    </div>
 					    <div class="form-group col-md-6">
 							<label for="codeBarre">Code barre</label>
-							<input type="text" class="form-control" id="codeBarreModif" readonly="readonly">
+							<input type="text" class="form-control" id="codeBarreModif" name="codeBarreModif" readonly="readonly">
 					  	</div>
 					</div>
 					
@@ -171,7 +171,7 @@
 						<input type="text" class="form-control" id="tvaModif" readonly="readonly"><br>
 				  	</div>
 				  	
-					<button type="submit" class="btn btn-dark">Modifier l'article</button>
+					<button type="submit" id="editFormSubmit" class="btn btn-dark">Modifier l'article</button>
 				</form>
 			</div>
 		</div>
@@ -179,6 +179,8 @@
 	
 	<script>
 		function updateEditForm(id, ref, nom, uri, prix, tva){
+			var top = document.getElementById("editFormSubmit").offsetTop;
+		    window.scrollTo(0, top);
 			document.getElementById("modifArticle").style.display = "inline";
 			document.getElementById("indexModif").value = id;
 			document.getElementById("codeBarreModif").value = id;
