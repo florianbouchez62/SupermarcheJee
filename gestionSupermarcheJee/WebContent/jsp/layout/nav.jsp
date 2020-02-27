@@ -20,6 +20,12 @@
     	<a href="Login" class="nav-link connexion">Connexion</a>
     </c:if>
     
-    <a href="Panier" class="nav-link panier"><i class="fas fa-shopping-basket"></i></a>
+    
+    <a href="Panier" class="nav-link panier">
+	    <c:if test="${panier != null && panier.size() > 0}">
+	    	${panier.size()}
+	    </c:if>	
+    	<i class="fas fa-shopping-basket"></i>
+    </a>
   </div>
 </nav>
