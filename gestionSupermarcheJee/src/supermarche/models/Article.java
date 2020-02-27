@@ -32,6 +32,18 @@ public class Article {
 		return imageUri;
 	}
 
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
+	}
+
+	public void setPrixHT(int prixHT) {
+		this.prixHT = prixHT;
+	}
+
+	public void setImageUri(String imageUri) {
+		this.imageUri = imageUri;
+	}
+
 	public String getReference() {
 		return reference;
 	}

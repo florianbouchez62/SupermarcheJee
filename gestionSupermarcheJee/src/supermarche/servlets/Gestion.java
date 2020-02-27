@@ -57,6 +57,12 @@ public class Gestion extends HttpServlet {
 					this.errorMessage = "Une des propriétés de l'Article n'est pas valide.";
 				}
 				break;
+			case "edit":
+				boolean completed = processEditForm(request, supermarche);
+				if(!completed) {
+					this.errorMessage = "Modification de l'article impossible, un champ du formulaire est invalide";
+				}
+				break;
 			case "delete":
 				long key = Long.parseLong(request.getParameter("index"));
 				supermarche.supprimerArticle(key);
@@ -80,6 +86,24 @@ public class Gestion extends HttpServlet {
 		} catch (Exception e) {
 			this.errorMessage = "Une des propriétés de l'Article n'est pas valide.";
 			return null;
+		}
+	}
+	
+	//Action lorsque le formulaire de modification est envoyé, retourne true si la modification est bien effectuée
+	private boolean processEditForm(HttpServletRequest request, Supermarche supermarche) {
+		try {
+			long codeBarre = Long.parseLong(request.getParameter("codeBarreModif"));
+			String libelle = request.getParameter("libelleModif");
+			String imageUri = request.getParameter("imageUriModif");
+			int prixHT = (int)(Float.parseFloat(request.getParameter("prixHTModif")) * 100);
+			Article a = supermarche.getArticles().get(codeBarre);
+			a.setLibelle(libelle);
+			a.setImageUri(imageUri);
+			a.setPrixHT(prixHT);
+			supermarche.getArticles().replace(codeBarre, a);
+			return true;
+		} catch (Exception e) {
+			return false;
 		}
 	}
 

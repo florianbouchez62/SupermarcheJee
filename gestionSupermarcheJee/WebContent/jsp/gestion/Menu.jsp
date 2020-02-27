@@ -54,7 +54,11 @@
 							      
 							      <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 									  <div class="btn-group mr-2" role="group" aria-label="First group">
-									    <button class="btn btn-dark btn-sm" style="max-height:2.2em;" id="${article.value.codeBarre}">Editer</button>
+									    <button class="btn btn-dark btn-sm" style="max-height:2.2em;" 
+									    id="${article.value.codeBarre}" 
+									    onclick="updateEditForm(${article.value.codeBarre},'${article.value.reference}', '${article.value.libelle}', '${article.value.imageUri}', ${article.value.prixHT / 100}, ${article.value.tauxTVA / 100})">
+									    	Editer
+									    </button>
 									  </div>
 									  <div class="btn-group mr-2" role="group" aria-label="Second group">
 									  	<form method="post" action="Gestion">
@@ -87,47 +91,110 @@
 		
 		<hr>
 		
-		<h3 class="offset-md-1" style="margin-top:2em;">Ajouter un article</h3>
+		<div class="row" style="margin-top:2em;">
 		
-		<div class="row" style="margin-top:4em;">
-			<form method="post" class="col-4 offset-md-1" action="Gestion">
-				<div class="form-row">
-				    <div class="form-group col-md-6">
-					  	<label for="reference">Référence</label>
-						<input type="text" class="form-control" name="reference" placeholder="Ex 73F2" maxlength="6">
-				    </div>
-				    <div class="form-group col-md-6">
-						<label for="codeBarre">Code barre</label>
-						<input type="text" class="form-control" name="codeBarre" placeholder="Ex 3000128651210" maxlength="13">
-				  	</div>
-				</div>
+			<div class="col-4 offset-md-1">
+				<h3>Ajouter un article</h3>
+				<form method="post" style="margin-top: 1em;" action="Gestion">
+					<div class="form-row">
+					    <div class="form-group col-md-6">
+						  	<label for="reference">Référence</label>
+							<input type="text" class="form-control" name="reference" placeholder="Ex 73F2" maxlength="6">
+					    </div>
+					    <div class="form-group col-md-6">
+							<label for="codeBarre">Code barre</label>
+							<input type="text" class="form-control" name="codeBarre" placeholder="Ex 3000128651210" maxlength="13">
+					  	</div>
+					</div>
+					
+				  <div class="form-group">
+				      <label for="libelle">Nom du produit</label>
+					  <input type="text" class="form-control" name="libelle" placeholder="Ex courgette" maxlength="100">
+			  	  </div>
 				
-			  <div class="form-group">
-			      <label for="libelle">Nom du produit</label>
-				  <input type="text" class="form-control" name="libelle" placeholder="Ex courgette" maxlength="100">
-		  	  </div>
+				  <div class="form-group">
+					<input type="hidden" name="method" value="add">
+					<label for="imageUri">Image url</label>
+					<input type="text" class="form-control" name="imageUri" placeholder="Ex www.google.com/courgette.png">
+				  </div>
+	
+				  <div class="form-group">
+				  	<label for="prixHT">Prix HT</label>
+					<input type="number" class="form-control" step="any" name="prixHT" placeholder="Ex 773.72"><br>
+				  </div>
+				  
+				  <div class="form-group">
+				  	<label for="tauxTVA">Taux de TVA</label>
+				  	<select class="form-control" name="tauxTVA">
+						<option value="0">5.5%</option>
+						<option value="1">20.0%</option>
+					</select><br>
+				  </div>
+				  <button type="submit" class="btn btn-dark">Ajouter l'article</button>
+				</form>
+			</div>
 			
-			  <div class="form-group">
-				<input type="hidden" name="method" value="add">
-				<label for="imageUri">Image url</label>
-				<input type="text" class="form-control" name="imageUri" placeholder="Ex www.google.com/courgette.png">
-			  </div>
-
-			  <div class="form-group">
-			  	<label for="prixHT">Prix HT</label>
-				<input type="number" class="form-control" step="any" name="prixHT" placeholder="Ex 773.72"><br>
-			  </div>
-			  
-			  <div class="form-group">
-			  	<label for="tauxTVA">Taux de TVA</label>
-			  	<select class="form-control" name="tauxTVA">
-					<option value="0">5.5%</option>
-					<option value="1">20.0%</option>
-				</select><br>
-			  </div>
-			  <button type="submit" class="btn btn-dark">Ajouter l'article</button>
-			  
-			</form>
+			<div class="col-4 offset-md-2" id="modifArticle" style="display: none">
+				<h3>Modification de l'article <span aria-hidden="true" onclick="hideEditForm()">&times;</span></h3>
+				<form method="post" style="margin-top: 1em" action="Gestion" id="editForm">
+					<input type="hidden" name="method" value="edit">
+					<input type="hidden" name="index" id="indexModif" value="">
+					<div class="form-row">
+					    <div class="form-group col-md-6">
+						  	<label for="reference">Référence</label>
+							<input type="text" class="form-control" id="referenceModif" readonly="readonly">
+					    </div>
+					    <div class="form-group col-md-6">
+							<label for="codeBarre">Code barre</label>
+							<input type="text" class="form-control" id="codeBarreModif" name="codeBarreModif" readonly="readonly">
+					  	</div>
+					</div>
+					
+					<div class="form-group">
+				      	<label for="libelle">Nom du produit</label>
+					  	<input type="text" class="form-control" name="libelleModif" id="libelleModif" maxlength="100">
+			  	  	</div>
+				
+				  	<div class="form-group">
+						<input type="hidden" name="method" value="add">
+						<label for="imageUri">Image url</label>
+						<input type="text" class="form-control" name="imageUriModif" id="imageUriModif">
+				  	</div>
+	
+				  	<div class="form-group">
+				  		<label for="prixHT">Prix HT</label>
+						<input type="number" class="form-control" step="any" name="prixHTModif" id="prixHTModif"><br>
+				  	</div>
+					
+					<div class="form-group">
+				  		<label for="tauxTVA">tauxTVA</label>
+						<input type="text" class="form-control" id="tvaModif" readonly="readonly"><br>
+				  	</div>
+				  	
+					<button type="submit" id="editFormSubmit" class="btn btn-dark">Modifier l'article</button>
+				</form>
+			</div>
 		</div>
 	</body>
+	
+	<script>
+		function updateEditForm(id, ref, nom, uri, prix, tva){
+			var top = document.getElementById("editFormSubmit").offsetTop;
+		    window.scrollTo(0, top);
+			document.getElementById("modifArticle").style.display = "inline";
+			document.getElementById("indexModif").value = id;
+			document.getElementById("codeBarreModif").value = id;
+			document.getElementById("referenceModif").value = ref;
+			document.getElementById("libelleModif").value = nom;
+			document.getElementById("imageUriModif").value = uri;
+			document.getElementById("prixHTModif").value = prix;
+			document.getElementById("tvaModif").value = (tva + "%");
+			console.log(id);
+		}
+		
+		function hideEditForm(){
+			document.getElementById("modifArticle").style.display = "none";
+		}
+		
+	</script>
 </html>
