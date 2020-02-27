@@ -47,6 +47,10 @@ public class Article {
 	public int getPrixTTC() {
 		return prixHT + (prixHT * (tauxTVA/100)/100);
 	}
+	
+	public int getMontantTVA() {
+		return this.getPrixTTC() - this.getPrixHT();
+	}
 
 	public int getTauxTVA() {
 		return tauxTVA;

@@ -2,7 +2,8 @@ package supermarche.servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.HashMap;
+import java.util.TreeMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,31 +28,86 @@ public class Panier extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/jsp/Panier.jsp");
-		dispatcher.forward(request, response);
+		HttpSession session = request.getSession(false);
+		if(session != null) {
+			createPanierIfNotExists(session);
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/jsp/Panier.jsp");
+			dispatcher.forward(request, response);
+		} else {
+			response.sendRedirect(request.getContextPath() + "/Home");
+		}
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@SuppressWarnings({ "unchecked", "unlikely-arg-type" })
+	@SuppressWarnings({ "unchecked" })
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("je passe dans le post");
 		HttpSession session = request.getSession(false);
+		boolean redirectHome = true;
+		String message = null;
+		
 		if(session != null) {
-			if(request.getParameter("method").equals("add")) {
-				System.out.println("la methode est bien add");
-				Supermarche supermarche = (Supermarche) this.getServletContext().getAttribute("supermarche");
-				ArrayList<Article> panier = (ArrayList<Article>) session.getAttribute("panier");
-				System.out.println(supermarche.getArticles());
-				long CodeBarre = Long.parseLong(request.getParameter("article"));
-				Article a = supermarche.getArticles().get(CodeBarre);
-				System.out.println(panier);
-				panier.add(a);
+			createPanierIfNotExists(session);
+			String method = request.getParameter("method");
+			Supermarche supermarche = (Supermarche) this.getServletContext().getAttribute("supermarche");
+			TreeMap<Integer, Article> panier = (TreeMap<Integer, Article>) session.getAttribute("panier");
+			Article articleToAdd = null;
+			int key = 0;
+			
+			switch(method) {
+				case "add" :
+					long CodeBarre = Long.parseLong(request.getParameter("article"));
+					articleToAdd = supermarche.getArticles().get(CodeBarre);
+					if(panier.lastEntry() != null) {
+						key = panier.lastEntry().getKey() + 1;
+					}
+					panier.put(key, articleToAdd);
+					break;
+					
+				case "addByCode" :
+					try {
+						long codeSubmitted = Long.parseLong(request.getParameter("code"));
+						articleToAdd = supermarche.getArticles().get(codeSubmitted);
+						if(articleToAdd != null) {
+							if(panier.lastEntry() != null) {
+								key = panier.lastEntry().getKey() + 1;
+							}
+							panier.put(key, articleToAdd);
+						} else {
+							message = "Le code barre ne correspond à aucun article";
+						}
+					} catch (Exception e) {
+						message = "Le code barre ne correspond à aucun article";
+					}
+					redirectHome = false;
+					break;
+					
+				case "delete" :
+					key = Integer.parseInt(request.getParameter("index"));
+					panier.remove(key);
+					redirectHome = false;
+					break;
 			}
+			
 		}
+		
+		session.setAttribute("message", message);
 
-		response.sendRedirect(request.getContextPath() + "/Home");
+		if(redirectHome) {
+			response.sendRedirect(request.getContextPath() + "/Home");
+		} else {
+			response.sendRedirect(request.getContextPath() + "/Panier");
+		}
+		
+	}
+	
+	//Initialise un panier si celui-ci n'est pas défini dans la session.
+	private void createPanierIfNotExists(HttpSession session) {
+		if (session.getAttribute("panier") == null) {
+			session.setAttribute("panier", new TreeMap<Integer, Article>());
+		}
 	}
 
 }
