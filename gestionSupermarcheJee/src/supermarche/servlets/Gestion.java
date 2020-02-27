@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import supermarche.models.Supermarche;
+
 /**
  * Servlet implementation class Gestion
  */
@@ -34,8 +36,17 @@ public class Gestion extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		HttpSession session = request.getSession(false);
+		String method = request.getParameter("method");
+		Supermarche supermarche = (Supermarche) this.getServletContext().getAttribute("supermarche");
+	
+		switch(method) {
+			case "delete":
+				long key = Long.parseLong(request.getParameter("index"));
+				supermarche.supprimerArticle(key);
+		}
+		
+		response.sendRedirect(request.getContextPath() + "/Gestion");
 	}
 
 }

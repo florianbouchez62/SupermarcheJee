@@ -21,8 +21,8 @@ public class Supermarche {
 		this.articles.put(article.getCodeBarre(), article);
 	}
 	
-	public void supprimerArticle(Article article) {
-		this.articles.remove(article);
+	public void supprimerArticle(long key) {
+		this.articles.remove(key);
 	}
 	
 	public void modifierArticle(Article article) {
