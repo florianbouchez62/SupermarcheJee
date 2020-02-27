@@ -82,7 +82,7 @@ body {
   color: #222;
   height: 3em;
   overflow: hidden;
-  position: relative;
+  position: relative;	
 }
 
 .product-grid__title:after {
