@@ -32,10 +32,13 @@
 							<td><fmt:formatNumber value="${article.value.prixHT / 100}" pattern="0.00"/> EUR</td>
 							<td><fmt:formatNumber value="${article.value.tauxTVA / 100}" pattern="0.00"/> %</td>
 							<td>
+								<button id="${article.value.codeBarre}">Editer</button>
+							</td>
+							<td>
 								<form method="post" action="Gestion">
 									<input type="hidden" name="method" value="delete">
 									<input type="hidden" name="index" value="${article.key}">
-									<input type="submit" value="Supprimer">
+									<button type="submit"> Supprimer </button>
 								</form>
 							</td>
 						</tr>
@@ -52,6 +55,10 @@
 		<hr>
 		
 		<h4>Ajouter un article</h4>
+		
+		<c:if test="${addMessage != null}">
+			<p style="color: darkred">ERREUR - <c:out value="${addMessage}"/></p>
+		</c:if>
 		
 		<form method="post" action="Gestion">
 			<input type="hidden" name="method" value="add">
