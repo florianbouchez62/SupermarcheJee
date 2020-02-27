@@ -6,6 +6,10 @@ html {
   height: 30em;
 }
 
+.content {
+	height: 90vh;
+}
+
 .panier, .connexion, .gestion, .deconnexion {
 	color: rgba(0,0,0,.9);
 }
